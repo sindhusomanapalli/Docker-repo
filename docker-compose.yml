@@ -1,0 +1,39 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: .
+    container_name: nginx
+    ports:
+      - 8000:80
+    networks:
+      - nginx
+
+
+  apache:
+    image: ubuntu/apache2
+    container_name: apache2
+    ports:
+      - 8080:80
+    networks:
+      - apache
+
+  tomcat:
+    image: tomcat
+    container_name: tomcat
+    ports:
+      - 9000:8080
+    networks:
+      - nginx
+      - apache
+
+
+networks:
+  nginx:
+    driver: bridge
+    name: nginx
+
+  apache:
+    driver: bridge
+    name: apache
+
